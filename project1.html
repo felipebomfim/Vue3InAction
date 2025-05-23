@@ -1,39 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Vue 3.4 Template</title>
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/normalize.css/normalize.css"
+        />
+        <style type="text/css">
+            body {
+                font-family: monospace;
+                padding: 20px;
+                font-size: 2em;
+            }
+            .cant {
+                color: red;
+            }
+            .can {
+                color: green;
+            }
+        </style>
+        <script src="https://unpkg.com/vue@3.4.0"></script>
+    </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vue 3.4 Template</title>
-  <link rel="stylesheet" href="https://unpkg.com/normalize.css/normalize.css">
-  <style type="text/css">
-    body {
-      font-family: monospace;
-      padding: 20px;
-      font-size: 2em;
-    }
-  </style>
-  <script src="https://unpkg.com/vue@3.4.0"></script>
-</head>
+    <body>
+        <div id="app">
+			<p>Enter your age:</p>
+			<input type="number" v-model="age" />
+            <div>{{message}}</div>
+            <div>
+                Can you drive:
+                <span
+                    :class="{'can': canDrive==='Yes', 'cant': canDrive === 'No'}"
+                    >{{canDrive}}</span
+                >
+            </div>
+        </div>
+        <script>
+            const { createApp, ref, computed } = Vue;
+            const App = {
+                setup() {
+                    let message = ref("Hello!");
+                    let age = ref(null);
 
-<body>
-  <div id="app">
-    <div>
-      {{message}}
-    </div>
-  </div>
-  <script>
-    const { createApp, ref } = Vue;
-    const App = {
-      setup() {
-        return {
-          message: 'Hello!',
-        };
-      },
-    };
+                    let canDrive = computed(() => {
+                        console.log("computed");
+                        return age.value >= 18 ? "Yes" : "No";
+                    });
 
-    createApp(App).mount('#app');
-  </script>
-</body>
+                    setTimeout(() => {
+                        message.value = "Bye!";
+                        console.log("message changed");
+                        age.value = 20;
+                    }, 5000);
 
+                    return {
+                        message,
+                        canDrive,
+						age
+                    };
+                },
+            };
+
+            createApp(App).mount("#app");
+        </script>
+    </body>
 </html>

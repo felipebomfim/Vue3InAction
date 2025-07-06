@@ -26,13 +26,13 @@
 
     <body>
         <div id="app">
-			<p>Enter your age:</p>
-			<input type="number" v-model="age" />
+            <p>Enter your age:</p>
+            <input type="number" v-model="age" />
             <div>{{message}}</div>
             <div>
                 Can you drive:
                 <span
-                    :class="{'can': canDrive==='Yes', 'cant': canDrive === 'No'}"
+                    :class="{'can': canDrive === 'Yes', 'cant': canDrive === 'No'}"
                     >{{canDrive}}</span
                 >
             </div>
@@ -58,7 +58,7 @@
                     return {
                         message,
                         canDrive,
-						age
+                        age,
                     };
                 },
             };
